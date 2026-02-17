@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>All Tasks</h2>
+
+<a href="{% url 'add_task' %}">
+    <button class="btn btn-add">➕ Add Task</button>
+</a>
+
+<br><br>
+
+{% for task in tasks %}
+
+<div class="card">
+
+    <h3>{{ task.title }}</h3>
+
+    <p>{{ task.description }}</p>
+
+    <p>Status:
+        {% if task.completed %}
+            ✅ Completed
+        {% else %}
+            ❌ Pending
+        {% endif %}
+    </p>
+
+    <small>Created: {{ task.created_at }}</small>
+
+</div>
+
+{% empty %}
+
+<p>No tasks yet.</p>
+
+{% endfor %}
+
+{% endblock %}

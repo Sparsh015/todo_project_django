@@ -18,6 +18,11 @@
 
     <p>{{ task.description }}</p>
 
+    <p>Priority: {{ task.priority }}</p>
+
+    {% if task.due_date %}
+        <p>Due: {{ task.due_date }}</p>
+    {% endif %}
     <p>Status:
         {% if task.completed %}
             ✅ Completed

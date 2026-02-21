@@ -13,8 +13,18 @@
     <label>Description:</label><br>
     <textarea name="description"></textarea><br><br>
 
+    <label>Priority:</label>
+    <select name="priority" >
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+    </select><br><br>
+
+    <label >Due Date</label>
+    <input type="date", name = "due_date"><br><br>
+
     <button type="submit" class="btn btn-add">
-        Save Task
+        Add Task
     </button>
 </form>
 

@@ -12,10 +12,13 @@ def add_task(request):
     if request.method == "POST":
         title = request.POST.get('title')
         description = request.POST.get('description')
-
+        priority=request.POST.get('priority')
+        due_date=request.POST.get('due_date')
         Task.objects.create(
             title=title,
-            description=description
+            description=description,
+            priority=priority,
+            due_date=due_date
         )
 
         return redirect('task_list')

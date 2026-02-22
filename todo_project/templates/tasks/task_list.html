@@ -16,6 +16,24 @@
 
     <h3>{{ task.title }}</h3>
 
+    <p>Status:
+        {% if task.completed%}
+            ✅ Completed
+        {% else %}
+            ❌ Pending
+        {% endif %}
+    </p>
+
+    <a href="{% url 'toggle_complete' task.id %}">
+        <button class="btn btn-toggle">
+            {% if task.completed %}
+                Mark incomplete
+            {% else %}
+                Mark Complete
+            {% endif %}
+        </button>
+    </a>
+
     <p>{{ task.description }}</p>
 
     <p>Priority: {{ task.priority }}</p>
@@ -23,13 +41,7 @@
     {% if task.due_date %}
         <p>Due: {{ task.due_date }}</p>
     {% endif %}
-    <p>Status:
-        {% if task.completed %}
-            ✅ Completed
-        {% else %}
-            ❌ Pending
-        {% endif %}
-    </p>
+    
 
     <small>Created: {{ task.created_at }}</small>
 

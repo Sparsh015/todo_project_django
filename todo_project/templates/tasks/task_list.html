@@ -25,7 +25,7 @@
     </p>
 
     <a href="{% url 'toggle_complete' task.id %}">
-        <button class="btn btn-toggle">
+        <button class="btn btn-toggle" style = "background-color: {% if task.completed%} green {%else%} orange {% endif %}; color: white;">
             {% if task.completed %}
                 Mark incomplete
             {% else %}
@@ -44,6 +44,12 @@
     
 
     <small>Created: {{ task.created_at }}</small>
+    
+    <!-- DELETE BUTTON -->
+    <form action="{% url 'delete_task' task.id %}" method="post" style="display:inline;" color="red">
+        {% csrf_token %}
+        <button type="submit" style="background-color: red; color: white;">🗑 Delete</button>
+    </form>
 
 </div>
 

@@ -36,3 +36,23 @@ def delete_task(request, task_id):
         task.delete()
         
     return redirect('task_list')
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Task
+
+
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == "POST":
+        
+        task.title = request.POST.get("title")
+        task.description = request.POST.get("description")
+        task.priority = request.POST.get("priority")
+        task.due_date = request.POST.get("due_date")
+
+        task.save() 
+
+        return redirect('task_list')
+
+    return render(request, 'tasks/add_task.html', {'task': task})

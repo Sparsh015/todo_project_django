@@ -24,6 +24,9 @@
         {% endif %}
     </p>
 
+    <a href="{% url 'edit_task' task.id %}">
+        <button>✏️ Edit</button>
+    </a>
     <a href="{% url 'toggle_complete' task.id %}">
         <button class="btn btn-toggle" style = "background-color: {% if task.completed%} green {%else%} orange {% endif %}; color: white;">
             {% if task.completed %}

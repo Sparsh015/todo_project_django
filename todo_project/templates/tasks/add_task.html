@@ -2,30 +2,58 @@
 
 {% block content %}
 
-<h2>Add New Task</h2>
+<h2>
+{% if task %} Edit Task {% else %} Add New Task {% endif %}
+</h2>
 
 <form method="POST">
     {% csrf_token %}
 
+    <!-- TITLE -->
     <label>Title:</label><br>
-    <input type="text" name="title" required><br><br>
+    <input type="text"
+           name="title"
+           value="{{ task.title|default:'' }}"
+           required><br><br>
 
+    <!-- DESCRIPTION -->
     <label>Description:</label><br>
-    <textarea name="description"></textarea><br><br>
+    <textarea name="description">
+{{ task.description|default:'' }}
+    </textarea><br><br>
 
+    <!-- PRIORITY -->
     <label>Priority:</label>
-    <select name="priority" >
-        <option value="Low">Low</option>
-        <option value="Medium" selected>Medium</option>
-        <option value="High">High</option>
+    <select name="priority">
+
+        <option value="Low"
+            {% if task.priority == "Low" %}selected{% endif %}>
+            Low
+        </option>
+
+        <option value="Medium"
+            {% if task.priority == "Medium" or not task %}selected{% endif %}>
+            Medium
+        </option>
+
+        <option value="High"
+            {% if task.priority == "High" %}selected{% endif %}>
+            High
+        </option>
+
     </select><br><br>
 
-    <label >Due Date</label>
-    <input type="date", name = "due_date"><br><br>
+    <!-- DUE DATE -->
+    <label>Due Date:</label>
+    <input type="date"
+           name="due_date"
+           value="{{ task.due_date|default:'' }}"><br><br>
 
+    <!-- SUBMIT BUTTON -->
     <button type="submit" class="btn btn-add">
-        Add Task
+        {% if task %} Update Task {% else %} Add Task {% endif %}
     </button>
+
 </form>
 
 {% endblock %}

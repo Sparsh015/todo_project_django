@@ -3,6 +3,7 @@ from .models import Task
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 # Create your views here.
 
 @login_required
@@ -69,15 +70,21 @@ def signup(request):
         return redirect('task_list')
     return render(request, 'tasks/signup.html')
 
-def logout_view(request):
+def login(request):
+
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect('task_list')
-    return redirect(request, 'tasks/login.html')
+        user = authenticate(request, username=username, password=password)
 
+        if user is not None:
+            login(request, user)
+            return redirect('task_list')
+        else:
+            messages.error(request, "Invalid credentials")
 
+    return render(request, "tasks/login.html")
+def logout(request):
+    logout(request)
+    return redirect('login')
